@@ -136,16 +136,19 @@ class Foundation_Framework_Shortcodes_Tabs {
 	 * @param unknown_type $content
 	 */
 	public function tab($atts, $content) {
-		$default_title = 'tab'.count($this->tabs);
-		
 		// make sure atts is an array
 		if (!is_array($atts)) {
 			$atts = array();
 		}
 		
+		// use the content for href tabs if no title is set
+		if (!empty($atts['href']) && empty($atts['title'])) {
+			$atts['title'] = $content;
+		}
+		
 		extract( shortcode_atts( array(
 			'id' => '',
-			'title' => $default_title,
+			'title' => 'tab'.count($this->tabs),
 			'group' => '',
 			'class' => '',
 			'href' => ''
