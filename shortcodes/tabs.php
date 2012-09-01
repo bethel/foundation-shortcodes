@@ -120,7 +120,7 @@ class Foundation_Framework_Shortcodes_Tabs {
 				}
 				$html .= '>';
 				
-				$html .= $content;
+				$html .= do_shortcode($content);
 				
 				$html .= '</li>';
 			}

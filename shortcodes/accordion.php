@@ -46,7 +46,7 @@ class Foundation_Framework_Shortcodes_Accordion {
 			$html .= '>';
 		
 			$html .= '<div class="title"><h5>'.$title.'</h5></div>';
-			$html .= '<div class="content">'.$content.'</div>';
+			$html .= '<div class="content">'.do_shortcode($content).'</div>';
 			
 			$html .= '</li>';
 		}

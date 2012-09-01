@@ -69,11 +69,11 @@ class Foundation_Framework_Shortcodes_Typography {
 		if (!empty($class)) {
 			$html .= ' class="'.Foundation_Framework_Shortcodes::sanitize_html_class_list($class).'"';
 		}
-		$html.='>' . $text;
+		$html.='>' . do_shortcode($text);
 		if (!empty($cite)) {
 			$html .= "<cite>$cite</cite>";
 		}
-		$html .= '<blockquote>';
+		$html .= '</blockquote>';
 		
 		return $html;
 	}

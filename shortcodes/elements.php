@@ -52,7 +52,7 @@ class Foundation_Framework_Shortcodes_Elements {
 		$classes = Foundation_Framework_Shortcodes::sanitize_html_class_list($classes);
 		
 		$html = '<div class="'.$classes.'">';
-		$html .= $text;
+		$html .= do_shortcode($text);
 		if (!$no_close) {
 			$html .= '<a href="" class="close">&times;</a>';
 		}
@@ -135,7 +135,7 @@ class Foundation_Framework_Shortcodes_Elements {
 		}
 			
 		$classes = Foundation_Framework_Shortcodes::sanitize_html_class_list($classes);
-		return '<div class="'.$classes.'">'.$text.'</div>';
+		return '<div class="'.$classes.'">'.do_shortcode($text).'</div>';
 	}
 }
 new Foundation_Framework_Shortcodes_Elements();

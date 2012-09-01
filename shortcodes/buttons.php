@@ -57,7 +57,7 @@ class Foundation_Framework_Shortcodes_Buttons {
 			$html .= ' title="'.$title.'"';
 		}
 		if (!empty($target)) {
-			$html .= ' target"'.target.'"';
+			$html .= ' target="'.target.'"';
 		}
 		
 		$html .= '>' . $text . '</a>';
