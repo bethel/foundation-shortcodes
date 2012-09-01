@@ -9,6 +9,11 @@ class Foundation_Framework_Shortcodes_Grid {
 	private $in_row = false;
 	
 	function column($atts, $content = null) {
+		
+		// make sure atts is an array
+		if (!is_array($atts)) {
+			$atts = array();
+		}
 				
 		$widths = array('one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve');
 		$offsets = array();

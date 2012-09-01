@@ -7,10 +7,14 @@ class Foundation_Framework_Shortcodes_Buttons {
 	}
 	
 	public function button($atts, $content = '') {
-			
+		
+		if (!is_array($atts)) {
+			$atts = array();
+		}
+		
 		$sizes = array('tiny', 'small', 'medium', 'large');
 		$styles = array('radius', 'round');
-		$colors = array('regular', 'success, alert, secondary');
+		$colors = array('regular', 'success', 'alert', 'secondary');
 
 		$classes = array();
 		

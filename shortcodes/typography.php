@@ -25,6 +25,12 @@ class Foundation_Framework_Shortcodes_Typography {
 	}
 	
 	public function header($atts, $content = '', $tag = 'h1') {
+		
+		// make sure atts is an array
+		if (!is_array($atts)) {
+			$atts = array();
+		}
+		
 		$subheader = false;
 		if (in_array('subheader', $atts)) {
 			$subheader = true;
