@@ -10,6 +10,10 @@ class Foundation_Framework_Shortcodes_Elements {
 	
 	public function alert($atts, $content = '') {
 		
+		// enqueue the js. works outside wp_enqueue_scripts in wp 3.3 and up
+		wp_enqueue_script( 'jquery.foundation.alerts.js');
+		Foundation_Framework_Shortcodes::add_footer_script('$(document).foundationAlerts();');
+		
 		// make sure atts is an array
 		if (!is_array($atts)) {
 			$atts = array();

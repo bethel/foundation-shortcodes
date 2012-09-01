@@ -10,6 +10,11 @@ class Foundation_Framework_Shortcodes_Tabs {
 	}
 	
 	public function tabs($atts, $content) {
+		
+		// enqueue the js. works outside wp_enqueue_scripts in wp 3.3 and up
+		wp_enqueue_script( 'jquery.foundation.tabs.js');
+		Foundation_Framework_Shortcodes::add_footer_script('try {$(document).foundationTabs({callback:$.foundation.customForms.appendCustomMarkup});} catch (ex) {$(document).foundationTabs();}');
+		
 		// make sure atts is an array
 		if (!is_array($atts)) {
 			$atts = array();
@@ -132,6 +137,11 @@ class Foundation_Framework_Shortcodes_Tabs {
 	 */
 	public function tab($atts, $content) {
 		$default_title = 'tab'.count($this->tabs);
+		
+		// make sure atts is an array
+		if (!is_array($atts)) {
+			$atts = array();
+		}
 		
 		extract( shortcode_atts( array(
 			'id' => '',

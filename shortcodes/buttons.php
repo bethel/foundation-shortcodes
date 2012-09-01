@@ -8,6 +8,10 @@ class Foundation_Framework_Shortcodes_Buttons {
 	
 	public function button($atts, $content = '') {
 		
+		// enqueue the js. works outside wp_enqueue_scripts in wp 3.3 and up
+		wp_enqueue_script( 'jquery.foundation.buttons.js');
+		Foundation_Framework_Shortcodes::add_footer_script('$(document).foundationButtons();');
+		
 		if (!is_array($atts)) {
 			$atts = array();
 		}

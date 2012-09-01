@@ -11,9 +11,15 @@ License: MIT
 
 class Foundation_Framework_Shortcodes {
 
+	public static $path;
+	public static $url;
+	
 	private static $footer_scripts = array();
 	
 	public function __construct() {
+		$this->init_paths();
+		
+		require_once 'shortcodes/accordion.php';
 		require_once 'shortcodes/buttons.php';
 		require_once 'shortcodes/elements.php';
 		require_once 'shortcodes/grid.php';
@@ -29,6 +35,24 @@ class Foundation_Framework_Shortcodes {
 		remove_filter('the_content', 'wptexturize');
 		
 		add_filter('the_content', array($this, 'better_formatter'), 99);
+		
+		add_action('wp_enqueue_scripts', array($this, 'foundation_js'), 9); // called before default to allow themes to modify js
+	}
+	
+	/** attempts to determine the correct paths when symlinked */
+	function init_paths() {
+		if (defined("ABSPATH")) {
+			// check if the file systems match, if not, the plugin is likely symlinked
+			if (strpos(plugin_dir_path( __FILE__ ), ABSPATH) !== 0) {
+				// assume the plugin is in the default spot
+				Foundation_Framework_Shortcodes::$path = ABSPATH . 'wp-content/plugins/foundation-shortcodes/';
+				Foundation_Framework_Shortcodes::$url = site_url('/') . 'wp-content/plugins/foundation-shortcodes/';
+				return;
+			}
+		}
+		// go with the "safe" values
+		Foundation_Framework_Shortcodes::$path = plugin_dir_path( __FILE__ );
+		Foundation_Framework_Shortcodes::$url = plugin_dir_url( __FILE__ );
 	}
 	
 	public function print_footer_scripts() {
@@ -37,13 +61,16 @@ class Foundation_Framework_Shortcodes {
 		echo '<script type="text/javascript">' . "\n";
 		echo '/* <![CDATA[ */' . "\n";
 		
-		echo 'jQuery(document).ready(function ($) {' . "\n";
+		echo '(function($){'."\n";
+		echo '	$(function(){' ."\n";
 		
 		foreach (Foundation_Framework_Shortcodes::$footer_scripts as $script) {
 			echo $script . "\n";
 		}
 		
-		echo '});' . "\n";
+		echo '	})';
+		echo '})(jQuery);';
+		
 		echo '/* ]]> */' . "\n";
 		echo '</script>' . "\n";
 	}
@@ -85,6 +112,13 @@ class Foundation_Framework_Shortcodes {
 		}
 	
 		return $new_content;
+	}
+	
+	function foundation_js() {
+		wp_register_script( 'jquery.foundation.buttons.js', Foundation_Framework_Shortcodes::$url . 'js/jquery.foundation.buttons.js', array('jquery'), '2.6.0', true );
+		wp_register_script( 'jquery.foundation.tabs.js', Foundation_Framework_Shortcodes::$url . 'js/jquery.foundation.tabs.js', array('jquery'), '2.6.0', true );
+		wp_register_script( 'jquery.foundation.accordion.js', Foundation_Framework_Shortcodes::$url . 'js/jquery.foundation.accordion.js', array('jquery'), '2.6.0', true );
+		wp_register_script( 'jquery.foundation.alerts.js', Foundation_Framework_Shortcodes::$url . 'js/jquery.foundation.alerts.js', array('jquery'), '2.6.0', true );
 	}
 }
 new Foundation_Framework_Shortcodes();
