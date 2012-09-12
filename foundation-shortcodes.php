@@ -107,7 +107,7 @@ class Foundation_Framework_Shortcodes {
 			}
 			else
 			{
-				$new_content .= wptexturize(wpautop($piece));
+				$new_content .= wptexturize(wpautop($piece, 0));
 			}
 		}
 	
