@@ -30,11 +30,10 @@ class Foundation_Framework_Shortcodes {
 		
 		add_action('wp_print_footer_scripts', array($this, 'print_footer_scripts'));
 		
+		//remove_filter('the_content', 'wpautop');
+		//remove_filter('the_content', 'wptexturize');
 		
-		remove_filter('the_content', 'wpautop');
-		remove_filter('the_content', 'wptexturize');
-		
-		add_filter('the_content', array($this, 'better_formatter'), 99);
+		//add_filter('the_content', array($this, 'better_formatter'), 99);
 		
 		add_action('wp_enqueue_scripts', array($this, 'foundation_js'), 9); // called before default to allow themes to modify js
 	}
